@@ -66,7 +66,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function Navbar() {
+export default function Navbar({ user }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [value, setValue] = React.useState("");
@@ -76,7 +76,7 @@ export default function Navbar() {
   const items = [
     { href: "/", title: "Home" },
     { href: "/products", title: "Products" },
-    { href: "/sales", title: "Sales" },
+    { href: "/products/sales", title: "Sales" },
   ];
 
   const handleOpenDrawer = () => {
@@ -90,17 +90,16 @@ export default function Navbar() {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
-
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
   };
-
+  
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
+  };
+  const handleMobileMenuClose = () => {
+    setMobileMoreAnchorEl(null);
   };
 
   const handleSignOut = () => {
@@ -112,7 +111,7 @@ export default function Navbar() {
     <Menu
       anchorEl={anchorEl}
       anchorOrigin={{
-        vertical: "top",
+        vertical: "center",
         horizontal: "right",
       }}
       id={menuId}
@@ -122,7 +121,7 @@ export default function Navbar() {
         horizontal: "right",
       }}
       open={isMenuOpen}
-      onMouseLeave={handleMenuClose}
+      onClose={handleMenuClose}
     >
       <MenuItem>Profile</MenuItem>
       <MenuItem>My account</MenuItem>
@@ -255,33 +254,50 @@ export default function Navbar() {
                   display: { xs: "none", md: "flex" },
                 }}
               >
-                <IconButton
-                  size="large"
-                  edge="end"
-                  aria-label="account of current user"
-                  aria-controls={menuId}
-                  aria-haspopup="true"
-                  onMouseOver={handleProfileMenuOpen}
-                  color="inherit"
-                >
-                  <AccountCircle />
-                </IconButton>
+                {user ? (
+                  <IconButton
+                    size="large"
+                    edge="end"
+                    aria-label="account of current user"
+                    aria-controls={menuId}
+                    onAbort={handleProfileMenuOpen}
+                    aria-haspopup="true"
+                    color="inherit"
+                  >
+                    <AccountCircle />
+                  </IconButton>
+                ) : (
+                  <NavbarItem
+                    onClose={handleCloseDrawer}
+                    title="Sign in"
+                    href="/signin"
+                  />
+                )}
               </Box>
+
               <Box
                 sx={{
                   display: { xs: "flex", md: "none" },
                 }}
               >
-                <IconButton
-                  size="large"
-                  aria-label="show more"
-                  aria-controls={mobileMenuId}
-                  aria-haspopup="true"
-                  onClick={handleMobileMenuOpen}
-                  color="inherit"
-                >
-                  <MoreIcon />
-                </IconButton>
+                {user ? (
+                  <IconButton
+                    size="large"
+                    aria-label="show more"
+                    aria-controls={mobileMenuId}
+                    aria-haspopup="true"
+                    onClick={handleMobileMenuOpen}
+                    color="inherit"
+                  >
+                    <MoreIcon />
+                  </IconButton>
+                ) : (
+                  <NavbarItem
+                    onClose={handleCloseDrawer}
+                    title="Sign in"
+                    href="/signin"
+                  />
+                )}
               </Box>
             </Box>
           </Toolbar>
