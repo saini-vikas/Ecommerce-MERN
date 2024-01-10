@@ -73,9 +73,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 function ScrollTop(props) {
   const { children, window } = props;
-  // Note that you normally won't need to set the window ref as useScrollTrigger
-  // will default to window.
-  // This is only being set here because the demo is in an iframe.
   const trigger = useScrollTrigger({
     target: window ? window() : undefined,
     disableHysteresis: true,
@@ -226,6 +223,7 @@ export default function Navbar(user, props) {
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="fixed">
           <Toolbar
+            id="back-to-top-anchor"
             sx={{
               justifyContent: { sm: "space-evenly", md: "space-between" },
               marginX: { lg: 6, md: 1 },
@@ -348,14 +346,14 @@ export default function Navbar(user, props) {
             </Box>
           </Toolbar>
         </AppBar>
-        <ScrollTop {...props}>
-          <Fab size="small" aria-label="scroll back to top">
-            <KeyboardArrowUpIcon />
-          </Fab>
-        </ScrollTop>
         {renderMobileMenu}
         {renderMenu}
       </Box>
+      <ScrollTop {...props}>
+        <Fab size="small" aria-label="scroll back to top">
+          <KeyboardArrowUpIcon />
+        </Fab>
+      </ScrollTop>
     </>
   );
 }
