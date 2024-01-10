@@ -39,7 +39,15 @@ function Product(props) {
           paddingY: 2,
         }}
       >
-        <Typography>$ {props.price.toFixed(2)}</Typography>
+        <Typography
+          sx={{
+            backgroundColor: "#99FFFF",
+            borderRadius: "3px",
+            padding: "3px",
+          }}
+        >
+          $ {props.price.toFixed(2)}
+        </Typography>
         <Button
           size="small"
           color="info"
