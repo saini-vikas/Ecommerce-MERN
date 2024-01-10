@@ -31,6 +31,7 @@ function Products() {
       justifyContent="center"
       alignItems="center"
       padding={4}
+      marginTop={7}
       gap={3}
       sx={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
     >

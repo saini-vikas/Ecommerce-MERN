@@ -5,7 +5,7 @@ import Product from "./../components/Product";
 function Sales() {
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
-  const [itemPerPage] = useState(15);
+  const [itemPerPage] = useState(12);
   const [count, setCount] = useState(0);
 
   const fetchProducts = async () => {
@@ -32,6 +32,7 @@ function Sales() {
       justifyContent="center"
       alignItems="center"
       padding={4}
+      marginTop={7}
       gap={3}
       sx={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
     >
